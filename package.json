@@ -1,17 +1,33 @@
 {
-  "name": "live-fit-client",
+  "name": "liv-fit-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --force",
+    "host": "vite --force --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "axios": "^1.5.1",
+    "chart.js": "^4.4.0",
+    "pinia": "^2.1.6",
+    "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.34.1",
+    "rollup-plugin-visualizer": "^5.9.2",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
+    "vex-dialog": "^1.1.0",
+    "vex-js": "^4.1.0",
+    "vue": "^3.3.4",
+    "vue-plyr": "^7.0.0",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@types/node": "^20.6.2",
+    "@types/vex-js": "^2.3.31",
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
