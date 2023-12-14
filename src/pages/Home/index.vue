@@ -18,6 +18,8 @@ const toggleNotifMenu = () => {
   op.value.toggle(event);
 };
 onMounted(() => {
+  // console.log(import.meta.env);
+
   if (getCookie("token") === null) {
     router.push("/login");
   }
@@ -168,7 +170,10 @@ const value = ref(7);
       <div class="flex justify-content-between gap-4">
         <div class="card w-full mt-5">
           <LineChart v-if="sleepData.length" :data="sleepData.slice(0, 7)" />
-          <div v-else class="flex align-items-center justify-content-center">
+          <div
+            v-else
+            class="h-full flex align-items-center justify-content-center"
+          >
             <i
               class="pi pi-spin pi-spinner"
               style="color: var(--primary); font-size: 2rem"
