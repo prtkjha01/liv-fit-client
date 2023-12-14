@@ -1,11 +1,13 @@
 import axios from "axios";
 import { getCookie } from "./utils/cookies";
-console.log(import.meta.env);
+
+const getBaseUrl = (type: string): string =>
+  type === "prod"
+    ? "https://liv-fit-server.onrender.com"
+    : "http://localhost:4000";
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE,
-  // "http://localhost:4000",
-  // baseURL: "https://liv-fit-server.onrender.com",
+  baseURL: getBaseUrl("prod"),
   headers: {
     Authorization: `Bearer ${getCookie("token")}` || null,
   },
