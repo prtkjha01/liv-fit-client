@@ -12,7 +12,6 @@ Welcome to the frontend repository of Liv Fit Web Application! This application 
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
-- [License](#license)
 
 ### Getting Started
 
@@ -78,3 +77,15 @@ The project structure is organized to maintain a clean and scalable codebase. He
 - Efficient state management using Pinia.
 - Visualization of fitness data through interactive charts using Chart.js.
 - TypeScript for improved code quality and maintainability.
+
+### Contributing
+
+We welcome contributions! Feel free to submit issues and pull requests.
+
+- Fork the repository.
+- Create a new branch: `git checkout -b feature-name`.
+- Make your changes and commit: `git commit -m 'Add feature'`.
+- Push to the branch: `git push origin feature-name`.
+- Open a pull request.
+
+Code to the Liv Fit server can be found [here](https://github.com/prtkjha01/liv-fit-server)
