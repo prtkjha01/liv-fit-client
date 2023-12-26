@@ -23,10 +23,13 @@ To get started with the project, follow these steps:
    git clone https://github.com/prtkjha01/liv-fit-client.git
    ```
 2. **Install dependencies**
+
    ```bash
    cd liv-fit-client
+
    npm install
    ```
+
 3. **Run the development server**
    ```bash
    npm run dev
