@@ -107,6 +107,20 @@ const setChartOptions = () => {
 };
 </script>
 <template>
-  <Chart type="line" :data="chartData" :options="chartOptions" />
+  <Chart
+    type="line"
+    :data="chartData"
+    :options="chartOptions"
+    class="line-chart"
+  />
 </template>
-<style scoped></style>
+<style scoped>
+.line-chart {
+  margin-top: 1.5rem;
+}
+@media only screen and (min-width: 360px) and (max-width: 520px) {
+  .line-chart {
+    margin-top: 0;
+  }
+}
+</style>

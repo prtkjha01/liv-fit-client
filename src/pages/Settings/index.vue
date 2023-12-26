@@ -4,7 +4,7 @@ const router = useRouter();
 const settings = computed(() => useSettingsStore().settings);
 </script>
 <template>
-  <div>Settings</div>
+  <header class="mt-3 header-title">Settings</header>
   <div class="cards-container mt-5">
     <div
       v-for="setting in settings"

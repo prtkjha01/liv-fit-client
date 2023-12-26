@@ -46,7 +46,7 @@ const handleLogin = () => {
           id="username"
           class="w-full"
           v-model="loginPayload.email"
-          type="text"
+          type="email"
           placeholder="Enter username or mobile number"
         />
       </div>

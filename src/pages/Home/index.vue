@@ -3,6 +3,9 @@ import useUserStore from "@store/user";
 import useHomepageStore from "@/store/homepage";
 import LineChart from "@components/home/charts/LineChart.vue";
 import BarChart from "@/components/home/charts/BarChart.vue";
+import StepsWidget from "@/components/home/widgets/StepsWidget.vue";
+import WaterWidget from "@/components/home/widgets/WaterWidget.vue";
+import SleepWidget from "@/components/home/widgets/SleepWidget.vue";
 // import DoughnutChart from "@components/home/charts/DoughnutChart.vue";
 import { getCookie, deleteCookie } from "@/utils/cookies";
 import router from "@/router";
@@ -14,22 +17,17 @@ const handleLogout = () => {
 };
 const showSidebar = ref(false);
 const op = ref();
-const toggleNotifMenu = () => {
-  op.value.toggle(event);
-};
 onMounted(() => {
-  // console.log(import.meta.env);
-
   if (getCookie("token") === null) {
     router.push("/login");
   }
-  useHomepageStore().getBlogs();
+  getBlogs();
   useHomepageStore().getSleepData();
   useHomepageStore().getSteps();
+  useHomepageStore().getWaterRecord();
 });
 const user = computed(() => useUserStore().user);
 const blogs = computed(() => useHomepageStore().blogs as any[]);
-const steps = computed(() => useHomepageStore().steps as number);
 const sleepData = computed(() => {
   const temp: any[] = [];
   useHomepageStore().sleepData.forEach((sleep: any) => {
@@ -37,12 +35,25 @@ const sleepData = computed(() => {
   });
   return temp;
 });
-// const height = ref<number>(33.33);
-const value = ref(7);
+const toggleNotifMenu = () => {
+  op.value.toggle(event);
+};
+const blogLoading = ref(false);
+const getBlogs = () => {
+  blogLoading.value = true;
+  useHomepageStore()
+    .getBlogs()
+    .then(() => {
+      blogLoading.value = false;
+    })
+    .catch(() => {
+      blogLoading.value = false;
+    });
+};
 </script>
 <template>
   <div class="">
-    <div class="header flex align-items-center justify-content-between mt-3">
+    <header class="header flex align-items-center justify-content-between mt-3">
       <div class="left flex align-items-center gap-3">
         <div class="avatar flex align-items-center justify-content-center">
           <i
@@ -63,8 +74,10 @@ const value = ref(7);
         />
         <OverlayPanel ref="op" class="notif-menu"> </OverlayPanel>
       </div>
-    </div>
-    <div class="mobile-body">
+    </header>
+
+    <!-- MOBILE WIDGET VIEW START-->
+    <section class="mobile-body">
       <div class="card mt-5">
         <LineChart v-if="sleepData.length" :data="sleepData.slice(0, 7)" />
         <div v-else class="flex align-items-center justify-content-center">
@@ -75,100 +88,19 @@ const value = ref(7);
         </div>
       </div>
       <div class="flex justify-content-between abc gap-3">
-        <div
-          class="doughnut-chart steps-card card flex flex-column justify-content-center align-items-center mt-5"
-        >
-          <div class="flex justify-content-center align-items-center">
-            <div class="svg-container">
-              <svg
-                fill="#ca922b"
-                version="1.1"
-                id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                width="60px"
-                height="60px"
-                viewBox="0 0 515.458 515.458"
-                xml:space="preserve"
-              >
-                <g>
-                  <path
-                    d="M298.794,386.711c27.805,9.522,52.357,15.587,87.633,26.427C372.875,584.374,210.952,516.371,298.794,386.711z
-		 M443.366,229.409c-1.826-51.415-10.882-118.86-83.017-108.292c-33.815,8.825-58.8,45.962-70.551,110.035
-		c-6.454,35.229-2.701,84.678,4.912,114.32c6.951,20.889,4.587,19.605,12.058,23.572c28.916,6.514,57.542,13.725,86.693,21.078
-		C423.075,369.209,447.397,258.182,443.366,229.409z M220.752,225.463c7.607-29.646,11.36-79.095,4.909-114.32
-		C213.919,47.067,188.931,9.924,155.11,1.105C82.975-9.463,73.919,57.981,72.093,109.399
-		c-4.031,28.768,20.294,139.802,49.911,160.711c29.149-7.353,57.771-14.558,86.696-21.078
-		C216.162,245.069,213.798,246.352,220.752,225.463z M129.029,293.132c13.547,171.234,175.47,103.231,87.63-26.427
-		C188.854,276.228,164.304,282.292,129.029,293.132z"
-                  />
-                </g>
-              </svg>
-            </div>
-            <Knob
-              v-model="steps"
-              class="steps-knob"
-              valueColor="#dd9e2b"
-              :max="steps > 10000 ? steps : 10000"
-              :strokeWidth="6"
-            />
-          </div>
-          <div class="text-white text-sm font-bold">Steps</div>
-        </div>
-        <div
-          class="doughnut-chart flex flex-column justify-content-center align-items-center water-card card mt-5"
-        >
-          <div class="flex justify-content-center align-items-center">
-            <div class="svg-container">
-              <svg
-                width="60px"
-                height="60px"
-                viewBox="0 0 64 64"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g fill="none" fill-rule="evenodd">
-                  <path
-                    fill="#B4DFFB"
-                    d="M26.6995662,63 C36.4747667,63 44.3991324,55.0756343 44.3991324,45.3004338 C44.3991324,35.5252333 26.6995662,9 26.6995662,9 C26.6995662,9 9,35.5252333 9,45.3004338 C9,55.0756343 16.9243657,63 26.6995662,63 Z"
-                  />
-                  <path
-                    fill="#4796E7"
-                    d="M41.1107898,41 C48.351679,41 54.2215796,35.1300995 54.2215796,27.8892102 C54.2215796,20.648321 41.1107898,1 41.1107898,1 C41.1107898,1 28,20.648321 28,27.8892102 C28,35.1300995 33.8699005,41 41.1107898,41 Z"
-                  />
-                  <path
-                    stroke="#B4DFFB"
-                    stroke-linecap="round"
-                    stroke-width="2"
-                    d="M32,28 C32,32.9705627 36.0294373,37 41,37 L41,37"
-                  />
-                  <path
-                    stroke="#FFF"
-                    stroke-linecap="round"
-                    stroke-width="2"
-                    d="M13,46 C13,52.627417 18.372583,58 25,58 L25,58"
-                  />
-                </g>
-              </svg>
-            </div>
-
-            <Knob
-              v-model="value"
-              class="water-knob"
-              valueColor="#5f8eec"
-              :max="8"
-              :strokeWidth="6"
-            />
-          </div>
-          <div class="text-white text-sm font-bold">Water Consumed</div>
-        </div>
+        <StepsWidget />
+        <WaterWidget />
       </div>
       <div class="card mt-5">
         <BarChart />
       </div>
-    </div>
-    <div class="desktop-body">
-      <div class="flex justify-content-between gap-4">
-        <div class="card w-full mt-5">
+    </section>
+    <!-- MOBILE WIDGET VIEW END-->
+
+    <!-- DESKTOP WIDGET VIEW START-->
+    <section class="desktop-body">
+      <div class="flex justify-content-between gap-4 mt-5">
+        <div class="card w-full">
           <LineChart v-if="sleepData.length" :data="sleepData.slice(0, 7)" />
           <div
             v-else
@@ -180,104 +112,34 @@ const value = ref(7);
             />
           </div>
         </div>
-        <div class="card w-full mt-5">
-          <BarChart />
+        <div class="w-full">
+          <div class="card w-full">
+            <BarChart />
+          </div>
+          <div class="card w-full mt-4">
+            <BarChart />
+          </div>
         </div>
       </div>
       <div class="flex justify-content-between gap-4">
-        <div
-          class="doughnut-chart w-full steps-card card flex flex-column justify-content-center align-items-center mt-5"
-        >
-          <div class="flex justify-content-center align-items-center">
-            <div class="svg-container">
-              <svg
-                fill="#ca922b"
-                version="1.1"
-                id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                width="60px"
-                height="60px"
-                viewBox="0 0 515.458 515.458"
-                xml:space="preserve"
-              >
-                <g>
-                  <path
-                    d="M298.794,386.711c27.805,9.522,52.357,15.587,87.633,26.427C372.875,584.374,210.952,516.371,298.794,386.711z
-		 M443.366,229.409c-1.826-51.415-10.882-118.86-83.017-108.292c-33.815,8.825-58.8,45.962-70.551,110.035
-		c-6.454,35.229-2.701,84.678,4.912,114.32c6.951,20.889,4.587,19.605,12.058,23.572c28.916,6.514,57.542,13.725,86.693,21.078
-		C423.075,369.209,447.397,258.182,443.366,229.409z M220.752,225.463c7.607-29.646,11.36-79.095,4.909-114.32
-		C213.919,47.067,188.931,9.924,155.11,1.105C82.975-9.463,73.919,57.981,72.093,109.399
-		c-4.031,28.768,20.294,139.802,49.911,160.711c29.149-7.353,57.771-14.558,86.696-21.078
-		C216.162,245.069,213.798,246.352,220.752,225.463z M129.029,293.132c13.547,171.234,175.47,103.231,87.63-26.427
-		C188.854,276.228,164.304,282.292,129.029,293.132z"
-                  />
-                </g>
-              </svg>
-            </div>
-            <Knob
-              v-model="steps"
-              class="steps-knob"
-              valueColor="#dd9e2b"
-              :max="steps > 10000 ? steps : 10000"
-              :strokeWidth="6"
-            />
-          </div>
-          <div class="text-white text-sm font-bold">Steps</div>
-        </div>
-        <div
-          class="doughnut-chart w-full flex flex-column justify-content-center align-items-center water-card card mt-5"
-        >
-          <div class="flex justify-content-center align-items-center">
-            <div class="svg-container">
-              <svg
-                width="60px"
-                height="60px"
-                viewBox="0 0 64 64"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g fill="none" fill-rule="evenodd">
-                  <path
-                    fill="#B4DFFB"
-                    d="M26.6995662,63 C36.4747667,63 44.3991324,55.0756343 44.3991324,45.3004338 C44.3991324,35.5252333 26.6995662,9 26.6995662,9 C26.6995662,9 9,35.5252333 9,45.3004338 C9,55.0756343 16.9243657,63 26.6995662,63 Z"
-                  />
-                  <path
-                    fill="#4796E7"
-                    d="M41.1107898,41 C48.351679,41 54.2215796,35.1300995 54.2215796,27.8892102 C54.2215796,20.648321 41.1107898,1 41.1107898,1 C41.1107898,1 28,20.648321 28,27.8892102 C28,35.1300995 33.8699005,41 41.1107898,41 Z"
-                  />
-                  <path
-                    stroke="#B4DFFB"
-                    stroke-linecap="round"
-                    stroke-width="2"
-                    d="M32,28 C32,32.9705627 36.0294373,37 41,37 L41,37"
-                  />
-                  <path
-                    stroke="#FFF"
-                    stroke-linecap="round"
-                    stroke-width="2"
-                    d="M13,46 C13,52.627417 18.372583,58 25,58 L25,58"
-                  />
-                </g>
-              </svg>
-            </div>
-
-            <Knob
-              v-model="value"
-              class="water-knob"
-              valueColor="#5f8eec"
-              :max="8"
-              :strokeWidth="6"
-            />
-          </div>
-          <div class="text-white text-sm font-bold">Water Consumed</div>
-        </div>
+        <StepsWidget />
+        <SleepWidget />
+        <WaterWidget />
       </div>
-    </div>
-    <div>
+    </section>
+    <!-- DESKTOP WIDGET VIEW END-->
+
+    <!-- BLOGS SECTION START -->
+    <section>
       <div class="blog-heading mt-3">Blogs</div>
 
       <div class="blogs-container gap-4 mt-4">
-        <div v-for="blog in blogs" class="blog card" :key="blog._id">
+        <div
+          v-if="!blogLoading"
+          v-for="blog in blogs"
+          class="blog card"
+          :key="blog._id"
+        >
           <div class="blog-image-container">
             <img :src="blog.images[0]" class="blog-image" alt="blog-image" />
           </div>
@@ -290,8 +152,44 @@ const value = ref(7);
             <div class="blog-date">{{ new Date().toLocaleDateString() }}</div>
           </div>
         </div>
+        <div
+          v-else
+          v-for="i in 4"
+          class="blog card"
+          :key="i"
+          style="position: relative"
+        >
+          <div class="blog-image-container">
+            <Skeleton
+              width="full"
+              height="8rem"
+              class="blog-image"
+              style="background-color: rgba(58, 58, 58, 0.644)"
+            />
+          </div>
+          <div class="blog-body-container p-2">
+            <Skeleton
+              width="4rem"
+              height="1rem"
+              style="background-color: rgba(58, 58, 58, 0.644)"
+            />
+            <Skeleton
+              width="full"
+              height=".7rem"
+              class="mt-2"
+              style="background-color: rgba(58, 58, 58, 0.644)"
+            />
+            <Skeleton
+              width="7rem"
+              height=".7rem"
+              class="mt-1"
+              style="background-color: rgba(58, 58, 58, 0.644)"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+    <!-- BLOGS SECTION END -->
   </div>
   <Sidebar v-model:visible="showSidebar" class="user-menu" header="Sidebar">
     <div @click="handleLogout">Logout</div>
@@ -317,9 +215,6 @@ const value = ref(7);
 .user {
   font-size: 18px;
   font-weight: 700;
-}
-.doughnut-chart {
-  width: 48%;
 }
 /* .water-widget {
   
@@ -376,9 +271,8 @@ const value = ref(7);
   font-weight: 700;
 }
 .blog {
-  /* background-color: red; */
   color: var(--primary);
-  min-width: 152px;
+  /* min-width: 192px; */
 }
 .blog.card {
   padding: 0;
@@ -424,6 +318,9 @@ const value = ref(7);
   .mobile-body {
     display: block;
   }
+  .blog {
+    min-width: 152px;
+  }
   .blog-image {
     height: 128px;
     width: 100%;
@@ -461,19 +358,5 @@ const value = ref(7);
 .steps-knob .p-knob-text {
   fill: #fff;
   /* fill: #dd9e2b; */
-}
-.water-card {
-  background: linear-gradient(
-    0deg,
-    rgba(0, 203, 249, 1) 0%,
-    rgba(13, 65, 224, 1) 100%
-  );
-}
-.steps-card {
-  background: linear-gradient(
-    0deg,
-    rgba(249, 165, 0, 1) 0%,
-    rgba(249, 224, 9, 1) 100%
-  );
 }
 </style>

@@ -85,5 +85,20 @@ const setChartOptions = () => {
 };
 </script>
 <template>
-  <Chart type="bar" :data="chartData" :options="chartOptions" class="h-20rem" />
+  <Chart
+    type="bar"
+    :data="chartData"
+    :options="chartOptions"
+    class="bar-chart"
+  />
 </template>
+<style>
+/* .bar-chart {
+  height: 20rem;
+}
+@media only screen and (min-width: 360px) and (max-width: 520px) {
+  .bar-chart {
+    height: 12rem;
+  }
+} */
+</style>

@@ -5,6 +5,7 @@ const useHomepageStore = defineStore("homepage", {
     blogs: [],
     sleepData: [],
     steps: 0,
+    glassesOfWater: 0,
   }),
   actions: {
     getBlogs() {
@@ -40,6 +41,19 @@ const useHomepageStore = defineStore("homepage", {
           .get("steps")
           .then((response) => {
             this.steps = response.data.count;
+            resolve(response);
+          })
+          .catch((error: Error) => {
+            reject(error);
+          });
+      });
+    },
+    getWaterRecord() {
+      return new Promise((resolve, reject) => {
+        instance
+          .get("water")
+          .then((response) => {
+            this.glassesOfWater = response.data.count;
             resolve(response);
           })
           .catch((error: Error) => {

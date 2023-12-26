@@ -23,8 +23,8 @@ const tutorials = computed(() => useTutorialStore().tutorials);
 // };
 </script>
 <template>
-  <div>Tutorials</div>
-  <div class="card-container">
+  <header class="mt-3 header-title">Tutorials</header>
+  <div class="card-container mt-4">
     <div
       v-if="!loading"
       v-for="tutorial in tutorials"

@@ -14,5 +14,8 @@ declare module 'vue' {
     LogCard: typeof import('./components/logs/LogCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SleepWidget: typeof import('./components/home/widgets/SleepWidget.vue')['default']
+    StepsWidget: typeof import('./components/home/widgets/StepsWidget.vue')['default']
+    WaterWidget: typeof import('./components/home/widgets/WaterWidget.vue')['default']
   }
 }
