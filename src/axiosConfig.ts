@@ -8,7 +8,7 @@ const getBaseUrl = (type: string): string =>
     : "http://localhost:4000";
 
 const instance = axios.create({
-  baseURL: getBaseUrl("dev"),
+  baseURL: getBaseUrl("prod"),
   headers: {
     Authorization: `Bearer ${getCookie("token")}` || null,
   },

@@ -54,9 +54,10 @@ const menuData = computed(() => useMenuStore().menuData);
 </template>
 
 <style scoped>
-/* .default-layout-wrapper {
-  position: relative;
-} */
+.default-layout-wrapper {
+  /* position: relative; */
+  padding-right: 6.5rem;
+}
 .bottom-menu-wrapper {
   position: fixed;
   top: 92px;
@@ -74,6 +75,9 @@ const menuData = computed(() => useMenuStore().menuData);
   padding-inline: 16px;
 }
 @media only screen and (min-width: 360px) and (max-width: 520px) {
+  .default-layout-wrapper {
+    padding-right: 0;
+  }
   .bottom-menu-wrapper {
     position: fixed;
     top: auto;

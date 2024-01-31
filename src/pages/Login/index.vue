@@ -30,13 +30,15 @@ const handleLogin = () => {
 };
 </script>
 <template>
-  <div class="login-wrapper flex flex-column justify-content-center">
+  <div
+    class="login-wrapper flex flex-column justify-content-center align-items-center"
+  >
     <div
       class="logo-wrapper flex align-items-center justify-content-center mb-6"
     >
       <img src="https://i.ibb.co/5FBCg4c/Liv.png" class="logo" alt="" />
     </div>
-    <div class="card">
+    <div class="card login-card">
       <div class="heading text-center mb-4">
         <h1>Login to Liv Fit</h1>
       </div>
@@ -104,6 +106,10 @@ const handleLogin = () => {
   object-fit: contain;
   mix-blend-mode: difference;
 }
+.login-card {
+  width: 50vw;
+  margin-top: 100px;
+}
 .login-btn {
   background-color: #dd9e2b;
   border: none;
@@ -126,6 +132,12 @@ const handleLogin = () => {
 .google-logo {
   height: 25px;
   width: 25px;
+}
+@media only screen and (min-width: 360px) and (max-width: 520px) {
+  .login-card {
+    width: 100%;
+    margin-top: 0;
+  }
 }
 </style>
 <style>
