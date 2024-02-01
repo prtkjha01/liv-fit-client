@@ -99,11 +99,11 @@ const menuData = computed(() => useMenuStore().menuData);
   color: #fff;
   background-color: var(--primary);
   transition: background-color 0.3s;
-  animation: blink 3s ease-in;
+  animation: blink 0.3s ease-in;
 }
 
 @keyframes blink {
-  form {
+  from {
     transform: scale(0.8);
   }
   to {
