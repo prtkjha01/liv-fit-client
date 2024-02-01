@@ -78,6 +78,15 @@ The project structure is organized to maintain a clean and scalable codebase. He
 - Visualization of fitness data through interactive charts using Chart.js.
 - TypeScript for improved code quality and maintainability.
 
+  
+### Screenshots
+
+![Screenshot_2024-02-01_at_8 27 40_PM-removebg-preview](https://github.com/prtkjha01/liv-fit-client/assets/68733176/7a74d65f-7f43-4415-9683-1057ada3e4b9)
+eenshot
+
+![Screenshot_2024-02-01_at_8 28 47_PM-removebg-preview](https://github.com/prtkjha01/liv-fit-client/assets/68733176/84858316-c5bf-4ef1-b1b5-3643aaa46961)
+
+
 ### Contributing
 
 We welcome contributions! Feel free to submit issues and pull requests.
