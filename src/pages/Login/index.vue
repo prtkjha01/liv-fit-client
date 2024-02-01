@@ -43,13 +43,13 @@ const handleLogin = () => {
         <h1>Login to Liv Fit</h1>
       </div>
       <div class="flex flex-column gap-1">
-        <label for="username">Username</label>
+        <label for="email">Email</label>
         <InputText
-          id="username"
+          id="email"
           class="w-full"
           v-model="loginPayload.email"
           type="email"
-          placeholder="Enter username or mobile number"
+          placeholder="Enter email or mobile number"
         />
       </div>
       <div class="flex flex-column gap-1 mt-3">
@@ -88,6 +88,12 @@ const handleLogin = () => {
         />
         <div>Login with Google</div>
       </div>
+    </div>
+    <div class="notice mt-4">
+      Note* - Login With Google feature is still in progress use the following
+      details to login
+      <br />
+      email: prtkjha01@gmail.com, password: password
     </div>
   </div>
 </template>

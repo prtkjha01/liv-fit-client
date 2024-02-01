@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useHomepageStore from "@/store/homepage";
-const value = ref(7);
+// const value = ref(7);
 const glassesOfWater = computed(
   () => useHomepageStore().glassesOfWater as number
 );
