@@ -82,7 +82,7 @@ The project structure is organized to maintain a clean and scalable codebase. He
 ### Screenshots
 
 ![Screenshot_2024-02-01_at_8 27 40_PM-removebg-preview](https://github.com/prtkjha01/liv-fit-client/assets/68733176/7a74d65f-7f43-4415-9683-1057ada3e4b9)
-eenshot
+
 
 ![Screenshot_2024-02-01_at_8 28 47_PM-removebg-preview](https://github.com/prtkjha01/liv-fit-client/assets/68733176/84858316-c5bf-4ef1-b1b5-3643aaa46961)
 
